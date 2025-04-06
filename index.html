@@ -64,7 +64,7 @@
 
   <p id="messaggio"></p>
 
-  <script>
+ <script>
   const form = document.getElementById('bookingForm');
 
   form.addEventListener('submit', async (e) => {
@@ -83,18 +83,19 @@
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     });
 
     if (response.ok) {
-      document.getElementById('messaggio').innerText = 'Richiesta inviata! Riceverai un riepilogo via email e una conferma appena approvata.';
+      document.getElementById('messaggio').innerText = 'Richiesta inviata! Controlla la mail per il riepilogo.';
       form.reset();
     } else {
-      document.getElementById('messaggio').innerText = 'Errore durante l’invio. Riprova tra qualche minuto.';
+      document.getElementById('messaggio').innerText = 'Errore durante l’invio. Riprova.';
     }
   });
 </script>
+
 
 </body>
 </html>
