@@ -65,22 +65,36 @@
   <p id="messaggio"></p>
 
   <script>
-    const form = document.getElementById('bookingForm');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
-      const response = await fetch('https://script.google.com/macros/s/AKfycbxNSgQRf0kxPIGpotHqYQz5cpEyV6u8VE2Ht6uHqx0C7i8XGZtgNpLZSqSAi7FnFQeaSA/exec', {
-        method: 'POST',
-        body: data
-      });
+  const form = document.getElementById('bookingForm');
 
-      if (response.ok) {
-        document.getElementById('messaggio').innerText = 'Richiesta inviata! Riceverai una conferma via email appena approvata.';
-        form.reset();
-      } else {
-        document.getElementById('messaggio').innerText = 'Errore durante l’invio. Riprova tra qualche minuto.';
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const data = {
+      nome: form.nome.value,
+      email: form.email.value,
+      persone: form.persone.value,
+      data: form.data.value,
+      orario: form.orario.value,
+      note: form.note.value
+    };
+
+    const response = await fetch('https://script.google.com/macros/s/AKfycbxNSgQRf0kxPIGpotHqYQz5cpEyV6u8VE2Ht6uHqx0C7i8XGZtgNpLZSqSAi7FnFQeaSA/exec', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
       }
     });
-  </script>
+
+    if (response.ok) {
+      document.getElementById('messaggio').innerText = 'Richiesta inviata! Riceverai un riepilogo via email e una conferma appena approvata.';
+      form.reset();
+    } else {
+      document.getElementById('messaggio').innerText = 'Errore durante l’invio. Riprova tra qualche minuto.';
+    }
+  });
+</script>
+
 </body>
 </html>
